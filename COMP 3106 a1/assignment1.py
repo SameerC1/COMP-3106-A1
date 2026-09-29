@@ -12,7 +12,7 @@ def pathfinding(filepath):
   optimal_path_cost = float("inf")
   num_states_explored = 0
 
-  grid = np.loadtxt(file_path, delimiter=",", dtype=str, ndmin=2)
+  grid = np.loadtxt(filepath, delimiter=",", dtype=str, ndmin=2)
   rows,columns=grid.shape
   start=None
   goals=set()
@@ -32,7 +32,7 @@ def pathfinding(filepath):
   #set starting state
   start_state = (start, frozenset())
   
-    #TODO
+    #TODO: Algorithm
 
   return optimal_path, optimal_path_cost, num_states_explored
 
