@@ -23,7 +23,7 @@ def pathfinding(filepath):
 
     #each heap item is a tuple (f cost, g cost, state)
     frontier=[]
-    heapq.heappush(frontier,(hash,0,start_state))
+    heapq.heappush(frontier,(h,0,start_state))
 
     bestcost={start_state:0}
     path={start_state:None}
@@ -130,13 +130,13 @@ def treasure_val(collected, treasures):
 
 def reconstruct_path(path, final_state):
     #Follow parent states backward and return coordinates in path order
-    optimal_path = []
-    curr = final_state
+    optimal_path=[]
+    curr=final_state
 
     while curr is not None:
         position, collected = curr
         optimal_path.append(position)
-        curr = path[curr]
+        curr=path[curr]
 
     optimal_path.reverse()
     return optimal_path
@@ -149,7 +149,7 @@ def heuristic(position, collected, treasures, goals):
     value = sum(treasures[t] for t in collected)
     best_estimate = float("inf")
 
-    if value >= 5:
+    if value>=5:
         for goal in goals:
             estimate = Manhattan(position, goal)
             best_estimate = min(best_estimate, estimate)
@@ -173,8 +173,7 @@ def test_examples():
     import ast
 
     examples_folder = (
-        Path(__file__).resolve().parent / "Examples" / "Examples"
-    )
+Path(__file__).resolve().parent / "Examples" / "Examples")
     passed = 0
 
     for number in range(1, 5):
@@ -183,8 +182,7 @@ def test_examples():
 
         try:
             expected_cost = int(
-                (folder / "optimal_path_cost.txt").read_text().strip()
-            )
+                (folder / "optimal_path_cost.txt").read_text().strip())
             expected_path = ast.literal_eval(
                 (folder / "optimal_path.txt").read_text()
             )
