@@ -30,7 +30,7 @@ def pathfinding(filepath):
 
     while frontier:
         #g is cost so far, h is estimated cost to goal, f=g+h
-        f,g,state =heapq.heappop(frontier)
+        f,g,state=heapq.heappop(frontier)
 
         #cheaper route to state might have been found since insertion
         #if cost so far is greater than the best cost, skip this state
@@ -62,7 +62,7 @@ def pathfinding(filepath):
                 heapq.heappush(frontier, (newf, new_g, new_state))
 
     #if no qualifying solution exists, return [], inf, and count.
-    return[],float("inf"), num_states_explored
+    return [], float("inf"), num_states_explored
 
 
 
@@ -95,11 +95,11 @@ def get_neighbors(grid, position):
     #return legal positions one step in any direction(not diagonal)
     rows, columns=grid.shape
     row, col=position
-    neighbors=[]
+    neighbors = []
     #check four directions, if the neighbor is within bounds and not a wall, add to neighbors
     for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-        nrow=row+dr
-        ncol=col+dc
+        nrow = row+dr
+        ncol = col+dc
         if not (0 <= nrow < rows and 0 <= ncol < columns):
             continue
         if grid[nrow, ncol] == "X":
@@ -147,24 +147,24 @@ def reconstruct_path(path, final_state):
 #heuristic, uses manhattan as the agent is in a grid with 4 direction movement
 def heuristic(position, collected, treasures, goals):
     value = sum(treasures[t] for t in collected)
-    best_estimate=float("inf")
+    best_estimate = float("inf")
 
     if value>=5:
         for goal in goals:
-            estimate=Manhattan(position, goal)
-            best_estimate=min(best_estimate, estimate)
+            estimate = Manhattan(position, goal)
+            best_estimate = min(best_estimate, estimate)
     else:
         for treasure in treasures:
             if treasure not in collected:
                 for goal in goals:
-                    estimate=Manhattan(position, treasure) + Manhattan(treasure, goal)
-                    best_estimate=min(best_estimate, estimate)
+                    estimate = Manhattan(position, treasure) + Manhattan(treasure, goal)
+                    best_estimate = min(best_estimate, estimate)
 
     return best_estimate
 
 #helper function for manhattan heuristic
 def Manhattan(a,b):
-  return abs(a[0]-b[0])+abs(a[1]-b[1])
+  return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
 #NOTE:REMOVE FUNCTION BEFORE SUBMISSION. ONLY FOR TESTING PURPOSES.
